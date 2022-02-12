@@ -11,7 +11,7 @@ def max_temp(N, K, temp):
     return maximum
 
 
-N, K = tuple(map(int, input().split()))
-temp = list(map(int, input().split()))
+N, K = tuple(map(int, sys.stdin.readline().split()))
+temp = list(map(int, sys.stdin.readline().split()))
 ans = max_temp(N, K, temp)
 print(ans)
