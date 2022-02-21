@@ -2,9 +2,7 @@ import sys
 
 sys.stdin = open('input.txt')
 
-
 num = int(input())
-
 arr = list(map(int, input().split()))
 
 ans = []
