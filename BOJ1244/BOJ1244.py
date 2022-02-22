@@ -1,7 +1,7 @@
 from sys import stdin
 
 # 입력 예시
-#stdin = open('input1244.txt', 'r')
+stdin = open('input1244.txt', 'r')
 
 # 입력 받기
 num = int(stdin.readline())
@@ -11,7 +11,7 @@ students = []
 
 # test case
 while T > 0:
-    students.append(tuple(map(int,stdin.readline().split())))
+    students.append(tuple(map(int, stdin.readline().split())))
     T -= 1
 
 # 스위치를 바꿔주는 함수 
