@@ -2,11 +2,11 @@ import sys
 
 sys.stdin = open('input.txt')
 
-N = int(input())
+N = int(sys.stdin.readline())
 
 stack = []
 for _ in range(N):
-    a = input()
+    a = sys.stdin.readline().rstrip('\n')
     if a.startswith('push'):
         stack.append(int(a[4:]))
     elif a == 'pop':
