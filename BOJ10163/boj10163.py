@@ -11,11 +11,16 @@ for num in range(1, N + 1):
         for j in range(x, x + width):
             plane[i][j] = num
 
-for num in range(1, N + 1):
-    ans = 0
-    for i in range(1001):
-        ans += plane[i].count(num)
-    print(ans)
+ans = [0 for _ in range(N)]
+for i in range(1001):
+    for j in range(1001):
+        if plane[i][j]:
+            ans[plane[i][j]-1] += 1
+        else:
+            continue
+
+for a in ans:
+    print(a)
 
 
 
