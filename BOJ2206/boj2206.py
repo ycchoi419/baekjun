@@ -13,7 +13,8 @@ dy = [1, -1, 0, 0]
 def bfs(n, m):
     q = deque()
     q.append((n, m, 0))
-    while q:
+    tmp = deque()
+    while q or tmp:
         i, j, br = q.popleft()
         cnt = visited[i][j]
         if my_map[i][j]:
@@ -23,7 +24,7 @@ def bfs(n, m):
                 br = 1
         if i == N-1 and j == M-1:
             return cnt + 1
-        tmp = deque()
+
         for k in range(4):
             if i + dx[k] < 0 or i + dx[k] >= N:
                 continue
@@ -36,9 +37,9 @@ def bfs(n, m):
                 elif not br:
                     tmp.append((i + dx[k], j + dy[k], br))
                     visited[i + dx[k]][j + dy[k]] = cnt + 1
-        if tmp:
-            cnt += 1
-            q.extend(tmp)
+    if tmp:
+        cnt += 1
+        q.extend(tmp)
     return -1
 
 print(bfs(0, 0))
