@@ -10,47 +10,41 @@ visited_one = [[0 for i in range(M)] for j in range(N)]
 dx = [0, 0, 1, -1]
 dy = [1, -1, 0, 0]
 
-def bfs(n, m):
+def bfs():
     q = deque()
-    q.append((n, m, 0, 1))
-    while q:
-        i, j, br, cnt = q.popleft()
-        if cnt == 1000000:
-            return -1
-        if i == N-1 and j == M-1:
-            return cnt
-        if my_map[i][j]: # 벽일 때
-            if br:  # 한 번 부순 상태일 때
-                continue
+    tmp = deque()
+    q.append((0, 0, 0))
+    cnt = 0
+    while True:
+        while q:
+            n, m, br = q.popleft()
+            if n==N-1 and m==M-1:
+                return cnt+1
+            if br:
+                for i in range(4):
+                    if 0 <= n + dx[i] < N and 0 <= m + dy[i] < M:
+                        if my_map[n + dx[i]][m + dy[i]]:
+                            continue
+                        if not visited_zero[n + dx[i]][m+dy[i]] and not visited_one[n + dx[i]][m+dy[i]]:
+                            tmp.append((n + dx[i], m + dy[i], br))
             else:
-                # if visited_one[i][j]:
-                #     continue
-                # else:
-                visited_one[i][j] = 1
-                # visited_zero[i][j] = 1
-                for k in range(4):
-                    if i + dx[k] < 0 or i + dx[k] >= N:
-                        continue
-                    if j + dy[k] < 0 or j + dy[k] >= M:
-                        continue
-                    # if not visited_one[i + dx[k]][j + dy[k]]:
-                    #     visited_one[i + dx[k]][j + dy[k]] = 1
-                    #     q.append((i + dx[k], j + dy[k], 1, cnt+1))
-        else:
-            # if visited_zero[i][j]:
-            #     continue
-            for k in range(4):
-                if i + dx[k] < 0 or i + dx[k] >= N:
-                    continue
-                if j + dy[k] < 0 or j + dy[k] >= M:
-                    continue
-                # if br:
-                #     if not visited_one[i + dx[k]][j + dy[k]]:
-                #         visited_one[i + dx[k]][j + dy[k]] = 1
-                # else:
-                #     if not visited_zero[i + dx[k]][j + dy[k]]:
-                #         visited_zero[i + dx[k]][j + dy[k]] = 1
-                q.append((i + dx[k], j + dy[k], br, cnt+1))
+                for i in range(4):
+                    if 0 <= n + dx[i] < N and 0 <= m + dy[i] < M:
+                        if not visited_zero[n + dx[i]][m + dy[i]]:
+                            if my_map[n + dx[i]][m + dy[i]]:
+                                tmp.append((n + dx[i], m + dy[i], 1))
+                            else:
+                                tmp.append((n + dx[i], m + dy[i], br))
+        if tmp:
+            q.extend(tmp)
+        else: break
+        while tmp:
+            n, m, br = tmp.popleft()
+            if br:
+                visited_one[n][m] = 1
+            else:
+                visited_zero[n][m] = 1
+        cnt += 1
     return -1
 
-print(bfs(0,0))
+print(bfs())
